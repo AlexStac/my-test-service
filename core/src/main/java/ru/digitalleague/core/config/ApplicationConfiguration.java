@@ -65,4 +65,15 @@ public class ApplicationConfiguration {
         liquibase.setShouldRun(false);
         return liquibase;
     }
+//    @Value("${liquibase.change-log}")
+//    private String defaultLiquibaseChangelog;
+//
+//    @Bean
+//    public SpringLiquibase liquibase() {
+//        liquibase.setDataSource(getDataSource);
+//        liquibase.setChangeLog(defaultLiquibaseChangelog);
+//        SpringLiquibase liquibase = new SpringLiquibase();
+//        liquibase.setShouldRun(false);
+//        return liquibase;
+//    }
 }

@@ -14,6 +14,14 @@
     <name>migration</name>
     <description>migration</description>
 
+    <properties>
+        <profile.changelogSchemaName>taxi_service</profile.changelogSchemaName>
+        <profile.propertyFile>src/main/resources/local/liquibase.properties</profile.propertyFile>
+        <profile.changeLogFile>src/main/resources/master.xml</profile.changeLogFile>
+        <profile.logging>debug</profile.logging>
+        <profile.changelogSchemaName>test</profile.changelogSchemaName>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -23,6 +31,7 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
+            <version>4.4.3</version>
         </dependency>
     </dependencies>
 
@@ -51,12 +60,7 @@
             </property>
         </activation>
 
-        <properties>
-            <profile.propertyFile>src/main/resources/local/liquibase.properties</profile.propertyFile>
-            <profile.changeLogFile>src/main/resources/master.xml</profile.changeLogFile>
-            <profile.logging>debug</profile.logging>
-            <profile.changelogSchemaName>test</profile.changelogSchemaName>
-        </properties>
+
     </profile>
 </profiles>
 
