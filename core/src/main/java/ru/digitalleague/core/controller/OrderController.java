@@ -1,19 +1,29 @@
 package ru.digitalleague.core.controller;
 
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import ru.digitalleague.core.model.OrderDetails;
-import ru.digitalleague.core.service.TaxiService;
+import ru.digitalleague.core.api.TaxiService;
 
 @RestController
-@RequiredArgsConstructor
+@Slf4j
 public class OrderController {
-    private final TaxiService taxiService;
 
-    @PostMapping(value = "/order")
-    public void sendOrderToQueue(@RequestBody OrderDetails order){
-        taxiService.sendOrderToQueue(order);
+    @Autowired
+    private TaxiService taxiService;
+
+    @PostMapping("/order-taxi")
+    public ResponseEntity<String> receive(@RequestBody OrderDetails orderDetails) {
+        log.info("Received message from postman" + orderDetails);
+
+        String result = taxiService.notifyTaxi(orderDetails);
+
+        return ResponseEntity.ok(result);
     }
 }
