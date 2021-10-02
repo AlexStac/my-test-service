@@ -62,7 +62,7 @@ public class ApplicationConfiguration {
     @Bean
     public SpringLiquibase liquibase() {
         SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setShouldRun(false);
+        liquibase.setShouldRun(true);
         return liquibase;
     }
 //    @Value("${liquibase.change-log}")
