@@ -19,7 +19,6 @@
         <profile.propertyFile>src/main/resources/local/liquibase.properties</profile.propertyFile>
         <profile.changeLogFile>src/main/resources/master.xml</profile.changeLogFile>
         <profile.logging>debug</profile.logging>
-        <profile.changelogSchemaName>test</profile.changelogSchemaName>
     </properties>
 
     <dependencies>
