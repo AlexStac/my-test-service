@@ -19,16 +19,16 @@ public class ApplicationConfiguration {
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.postgresql.Driver");
-        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/taxidb?currentSchema=taxi-service");
+        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/taxidb?currentSchema=taxi_service");
         dataSourceBuilder.username("postgres");
-        dataSourceBuilder.password("postgres");
+        dataSourceBuilder.password("3405611");
         return dataSourceBuilder.build();
     }
 
     @Bean
     public SpringLiquibase liquibase() {
         SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setShouldRun(true);
+        liquibase.setShouldRun(false);
         return liquibase;
     }
 }
