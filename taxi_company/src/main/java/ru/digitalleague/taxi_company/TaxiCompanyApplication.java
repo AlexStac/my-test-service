@@ -10,8 +10,8 @@ import ru.digitalleague.taxi_company.config.ApplicationConfiguration;
 @Import(ApplicationConfiguration.class)
 public class TaxiCompanyApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TaxiCompanyApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TaxiCompanyApplication.class, args);
+    }
 
 }

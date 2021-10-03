@@ -4,3 +4,4 @@ application:
 logging:
   level:
     ru.digitalleague.core: debug
+
