@@ -2,6 +2,7 @@ package ru.digitalleague.taxi_company.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
@@ -16,9 +17,16 @@ public interface OrderMapper {
      *
      * @param order информация о заказе.
      */
-    @Insert(" insert into orders (order_id, client_number, driver_id, start_trip, end_trip)" +
-            " values(#{orderId}, #{clientNumber}, #{driverId}, #{startTrip}, #{endTrip})")
-    void saveOrder(Order order);
+    @Insert(" insert into orders (client_number, driver_id)" +
+            " values( #{clientNumber}, #{driverId})")
+    void saveOrderByDriverClient(Order order);
+
+    @Select("select oder_id from orders " +
+            "where driver_id = #{driverId} and client_number = #{clientNumber}" +
+            "order by order_id DESC limit 1")
+    Long getOrderIdByDriverClient(Order order);
+
+
 
     /**
      * Установить время начала заказа.

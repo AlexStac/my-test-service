@@ -25,7 +25,7 @@ public class OrderController {
     @PostMapping("/trip-start")
     public ResponseEntity<String> startTrip(@RequestBody Order order) {
         order.setStartTrip(OffsetDateTime.now());
-        orderService.addStartTrip(order);
+        orderService.setStartTripTime(order);
         return ResponseEntity.ok("Поездка началась");
     }
 
@@ -35,7 +35,7 @@ public class OrderController {
     @PostMapping("/trip-complete")
     public ResponseEntity<String> completeTrip(@RequestBody Order order) {
         order.setEndTrip(OffsetDateTime.now());
-        orderService.addEndTrip(order);
+        orderService.setEndTripTime(order);
         return ResponseEntity.ok("Услуга оказана");
     }
 }

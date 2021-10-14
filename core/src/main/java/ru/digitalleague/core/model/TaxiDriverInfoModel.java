@@ -13,6 +13,9 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 public class TaxiDriverInfoModel {
 
+    /**
+     * Идентификатор водителя.
+     */
     private Long driverId;
 
     /**
@@ -26,22 +29,37 @@ public class TaxiDriverInfoModel {
     private String firstName;
 
     /**
-     * Отчество.
-     */
-    private String middleName;
-
-    /**
-     * Уровень.
+     * Уровень автомобиля.
      */
     private int level;
-
-    /**
-     * Модель авто (должна быть ENUM).
-     */
-    private String carModel;
 
     /**
      * Дата создания.
      */
     private OffsetDateTime createDttm;
+
+    /**
+     * Стоимость одной минуты.
+     */
+    private int minuteCost;
+
+    /**
+     * Индикатор занятости водителя (true - свободен).
+     */
+    private boolean busyIndicator;
+
+    /**
+     * Рейтинг водителя.
+     */
+    private int rating;
+
+    /**
+     * id города.
+     */
+    private int cityId;
+
+    /**
+     * id автомобился.
+     */
+    private int carId;
 }

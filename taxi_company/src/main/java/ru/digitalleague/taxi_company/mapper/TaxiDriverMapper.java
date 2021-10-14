@@ -4,7 +4,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
+import ru.digitalleague.taxi_company.model.OrderDetails;
 import ru.digitalleague.taxi_company.model.TaxiDriverInfoModel;
 
 import java.util.List;
@@ -25,6 +27,16 @@ public interface TaxiDriverMapper {
             @Result(property = "cityId", column = "city_id"),
             @Result(property = "carId", column = "car_id")
     })
-    @Select("SELECT driver_id, last_name, first_name, level, car_model, create_dttm FROM taxi_drive_info")
-    List<TaxiDriverInfoModel> getAllDrivers();
+    @Select("SELECT driver_id, last_name, first_name, level, create_dttm, minute_cost, busy_indicator, rating, city_id, car_id FROM taxi_drive_info")
+    List<TaxiDriverInfoModel> getDriver();
+
+    @Select("SELECT driver_id FROM taxi_drive_info tdi " +
+            "INNER JOIN city_queue cq ON tdi.city_id = cq.city_id " +
+            "INNER JOIN car ON tdi.car_id= car.id " +
+            "WHERE cq.name = #{city} AND car.model = #{carModel} AND tdi.level = #{level} AND tdi.busy_indicator = true " +
+            "GROUP BY rating DESC LIMIT 1")
+    Long getDriverIdByCityCarLevel(OrderDetails orderDetails);
+
+    @Update("UPDATE taxi_drive_info SET busy_indicator = false where driver_id = #{driverId}")
+    void setBusyIndicator(Long driverId);
 }

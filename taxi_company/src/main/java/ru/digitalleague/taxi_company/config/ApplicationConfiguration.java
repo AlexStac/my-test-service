@@ -12,6 +12,7 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,9 @@ import ru.digitalleague.taxi_company.listener.OrderListener;
 @Configuration
 @Slf4j
 public class ApplicationConfiguration {
+
+    @Autowired
+    OrderListener orderListener;
 
     @Value("${application.broker.receive-queue}")
     private String queueName;
@@ -80,7 +84,7 @@ public class ApplicationConfiguration {
         simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
         // устанавливаем очередь, которую будет слушать приложение
         simpleMessageListenerContainer.setQueues(myQueue3());
-        simpleMessageListenerContainer.setMessageListener(new OrderListener());
+        simpleMessageListenerContainer.setMessageListener(orderListener);
         return simpleMessageListenerContainer;
 
     }

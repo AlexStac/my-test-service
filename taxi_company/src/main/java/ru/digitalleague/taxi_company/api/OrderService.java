@@ -7,10 +7,11 @@ import ru.digitalleague.taxi_company.model.Order;
  * */
 public interface OrderService {
 
-    void save(Order order);
+    void saveOrder(Order order);
 
-    void addStartTrip(Order order);
+    Long getOrderIdByDriverClient(Order order);
 
-    void addEndTrip(Order order);
+    void setStartTripTime(Order order);
 
+    void setEndTripTime(Order order);
 }

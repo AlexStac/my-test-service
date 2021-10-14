@@ -20,20 +20,25 @@ public class OrderServiceImpl implements OrderService {
     private OrderMapper orderMapper;
 
     @Override
-    public void save(Order order) {
+    public void saveOrder(Order order) {
 
-        orderMapper.saveOrder(order);
+        orderMapper.saveOrderByDriverClient(order);
         System.out.println("Order saved");
     }
 
     @Override
-    public void addStartTrip(Order order) {
+    public Long getOrderIdByDriverClient(Order order) {
+        return orderMapper.getOrderIdByDriverClient(order);
+    }
+
+    @Override
+    public void setStartTripTime(Order order) {
         orderMapper.startTripById(order);
         System.out.println("Set order start");
     }
 
     @Override
-    public void addEndTrip(Order order) {
+    public void setEndTripTime(Order order) {
         orderMapper.endTripById(order);
         System.out.println("Set order end");
 
