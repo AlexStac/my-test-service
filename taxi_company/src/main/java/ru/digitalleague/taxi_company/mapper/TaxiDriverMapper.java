@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
+import ru.digitalleague.taxi_company.model.Order;
 import ru.digitalleague.taxi_company.model.OrderDetails;
 import ru.digitalleague.taxi_company.model.TaxiDriverInfoModel;
 
@@ -37,6 +38,13 @@ public interface TaxiDriverMapper {
             "GROUP BY rating DESC LIMIT 1")
     Long getDriverIdByCityCarLevel(OrderDetails orderDetails);
 
+    @Select("SELECT minute_cost FROM taxi_drive_info " +
+            "WHERE driver_id =  #{driver_id}")
+    Long getMinuteCostByDriverId(Order order);
+
     @Update("UPDATE taxi_drive_info SET busy_indicator = false where driver_id = #{driverId}")
-    void setBusyIndicator(Long driverId);
+    void setBusyIndicatorFalse(Order order);
+
+    @Update("UPDATE taxi_drive_info SET busy_indicator = true where driver_id = #{driverId}")
+    void setBusyIndicatorTrue(Order order);
 }

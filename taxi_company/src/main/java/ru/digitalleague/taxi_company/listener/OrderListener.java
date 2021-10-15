@@ -43,6 +43,5 @@ public class OrderListener implements MessageListener {
 
         orderService.saveOrder(order);
 
-        taxiDriverService.setDriverBusyIndicator(driverId);
     }
 }

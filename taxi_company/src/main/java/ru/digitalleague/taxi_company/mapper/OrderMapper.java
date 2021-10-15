@@ -31,12 +31,12 @@ public interface OrderMapper {
     /**
      * Установить время начала заказа.
      */
-    @Update("update orders set start_trip = #{startTrip} where order_id = #{orderId}")
+    @Update("update orders set start_trip = now() where order_id = #{orderId}")
     void startTripById(Order order);
 
     /**
      * Установить время окончания заказа.
      */
-    @Update("update orders set end_trip = #{endTrip} where order_id = #{orderId}")
+    @Update("update orders set end_trip = now() where order_id = #{orderId}")
     void endTripById(Order order);
 }

@@ -1,6 +1,6 @@
 package ru.digitalleague.core.model;
 
-public class OrderDetails {
+public class Order {
 
     /**
      * Идентификатор клиента.
