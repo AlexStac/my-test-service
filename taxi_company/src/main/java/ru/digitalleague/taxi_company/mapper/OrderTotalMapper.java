@@ -9,7 +9,7 @@ import ru.digitalleague.taxi_company.model.Order;
 @Mapper
 public interface OrderTotalMapper {
 
-    @Insert(" insert into order_total (order_id, sum)" +
-            " values( #{order_id}, #{sum})")
-    void saveOrderTotalByOrderId(Order order, Long sum);
+    @Insert("insert into order_total (order_id , sum)" +
+            " values( #{orderId}, #{sum})")
+    void saveOrderTotalByOrderId(Long orderId , Long sum);
 }

@@ -11,6 +11,8 @@ public interface OrderService {
 
     Long getOrderIdByDriverClient(Order order);
 
+    Order getOrderTime(Order order);
+
     void setStartTripTime(Order order);
 
     void setEndTripTime(Order order);

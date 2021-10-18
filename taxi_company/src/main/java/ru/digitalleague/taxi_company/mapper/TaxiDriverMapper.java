@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import ru.digitalleague.taxi_company.model.Order;
 import ru.digitalleague.taxi_company.model.OrderDetails;
+import ru.digitalleague.taxi_company.model.RatingModel;
 import ru.digitalleague.taxi_company.model.TaxiDriverInfoModel;
 
 import java.util.List;
@@ -21,25 +22,19 @@ public interface TaxiDriverMapper {
             @Result(property = "lastName", column = "last_name"),
             @Result(property = "firstName", column = "first_name"),
             @Result(property = "level", column = "level"),
-            @Result(property = "createDttm", column = "create_dttm"),
             @Result(property = "minuteCost", column = "minute_cost"),
-            @Result(property = "busyIndicator", column = "busy_indicator"),
-            @Result(property = "rating", column = "rating"),
-            @Result(property = "cityId", column = "city_id"),
-            @Result(property = "carId", column = "car_id")
+            @Result(property = "rating", column = "rating")
     })
-    @Select("SELECT driver_id, last_name, first_name, level, create_dttm, minute_cost, busy_indicator, rating, city_id, car_id FROM taxi_drive_info")
-    List<TaxiDriverInfoModel> getDriver();
-
-    @Select("SELECT driver_id FROM taxi_drive_info tdi " +
+    @Select("SELECT driver_id, last_name, first_name, level, minute_cost, rating " +
+            "FROM taxi_drive_info tdi " +
             "INNER JOIN city_queue cq ON tdi.city_id = cq.city_id " +
             "INNER JOIN car ON tdi.car_id= car.id " +
             "WHERE cq.name = #{city} AND car.model = #{carModel} AND tdi.level = #{level} AND tdi.busy_indicator = true " +
-            "GROUP BY rating DESC LIMIT 1")
-    Long getDriverIdByCityCarLevel(OrderDetails orderDetails);
+            "ORDER BY rating DESC LIMIT 1")
+    TaxiDriverInfoModel getDriver(OrderDetails orderDetails);
 
     @Select("SELECT minute_cost FROM taxi_drive_info " +
-            "WHERE driver_id =  #{driver_id}")
+            "WHERE driver_id =  #{driverId}")
     Long getMinuteCostByDriverId(Order order);
 
     @Update("UPDATE taxi_drive_info SET busy_indicator = false where driver_id = #{driverId}")
@@ -47,4 +42,7 @@ public interface TaxiDriverMapper {
 
     @Update("UPDATE taxi_drive_info SET busy_indicator = true where driver_id = #{driverId}")
     void setBusyIndicatorTrue(Order order);
+
+    @Update("UPDATE taxi_drive_info SET rating = #{rating} where driver_id = #{driverId}")
+    void setDriverRatingInTaxiDriversById(RatingModel ratingModel);
 }

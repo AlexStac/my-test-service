@@ -32,6 +32,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order getOrderTime(Order order) {
+        return orderMapper.getOrderTimeByOrderId(order);
+    }
+
+    @Override
     public void setStartTripTime(Order order) {
         orderMapper.startTripById(order);
         System.out.println("Set order start");

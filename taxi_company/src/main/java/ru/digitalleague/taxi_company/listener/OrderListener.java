@@ -12,6 +12,9 @@ import ru.digitalleague.taxi_company.api.OrderService;
 import ru.digitalleague.taxi_company.api.TaxiDriverService;
 import ru.digitalleague.taxi_company.model.Order;
 import ru.digitalleague.taxi_company.model.OrderDetails;
+import ru.digitalleague.taxi_company.model.TaxiDriverInfoModel;
+
+import java.util.List;
 
 @Component
 @Slf4j
@@ -34,14 +37,21 @@ public class OrderListener implements MessageListener {
 
         Order order = new Order();
 
-        OrderDetails orderDetails = objectMapper.readValue(message.toString(), OrderDetails.class);
+        log.info("Received message from rabbitmq " + message);
 
-        Long driverId = taxiDriverService.getDriverId(orderDetails);
+        ObjectMapper objectMapper = new ObjectMapper();
+        byte[] body = message.getBody();
+        OrderDetails orderDetails = objectMapper.readValue(body, OrderDetails.class);
+
+        TaxiDriverInfoModel driverDetails = taxiDriverService.getDriver(orderDetails);
+        Long driverId = driverDetails.getDriverId();
+        log.info("taxi driver id " + driverDetails.getDriverId());
+        log.info("К вам приедет {} {}.\n" +
+                "Стоимость одной минуты поездки {} рублей.", driverDetails.getFirstName(), driverDetails.getLastName(), driverDetails.getMinuteCost());
 
         order.setClientNumber(orderDetails.getClientNumber());
         order.setDriverId(driverId);
 
         orderService.saveOrder(order);
-
     }
 }

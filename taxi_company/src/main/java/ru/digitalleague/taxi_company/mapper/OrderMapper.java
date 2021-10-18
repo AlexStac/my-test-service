@@ -1,9 +1,6 @@
 package ru.digitalleague.taxi_company.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import ru.digitalleague.taxi_company.model.Order;
@@ -26,7 +23,13 @@ public interface OrderMapper {
             "order by order_id DESC limit 1")
     Long getOrderIdByDriverClient(Order order);
 
-
+    @Results(id = "order", value = {
+            @Result(property = "startTrip", column = "start_trip"),
+            @Result(property = "endTrip", column = "end_trip")
+    })
+    @Select("select start_trip, end_trip from orders " +
+            "where order_id = #{orderId}")
+    Order getOrderTimeByOrderId(Order order);
 
     /**
      * Установить время начала заказа.

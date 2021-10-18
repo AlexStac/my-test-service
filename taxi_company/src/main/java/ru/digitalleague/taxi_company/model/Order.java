@@ -31,5 +31,4 @@ public class Order {
      * Дата, время окончания поездки.
      */
     private OffsetDateTime endTrip;
-
 }

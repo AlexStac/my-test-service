@@ -9,6 +9,10 @@ import ru.digitalleague.taxi_company.mapper.OrderMapper;
 import ru.digitalleague.taxi_company.mapper.TaxiDriverMapper;
 import ru.digitalleague.taxi_company.model.Order;
 import ru.digitalleague.taxi_company.model.OrderDetails;
+import ru.digitalleague.taxi_company.model.RatingModel;
+import ru.digitalleague.taxi_company.model.TaxiDriverInfoModel;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -18,8 +22,8 @@ public class TaxiDriverServiceImpl implements TaxiDriverService {
     private TaxiDriverMapper taxiDriverMapper;
 
     @Override
-    public Long getDriverId(OrderDetails orderDetails) {
-        return taxiDriverMapper.getDriverIdByCityCarLevel(orderDetails);
+    public TaxiDriverInfoModel getDriver(OrderDetails orderDetails) {
+        return taxiDriverMapper.getDriver(orderDetails);
     }
 
     @Override
@@ -37,5 +41,8 @@ public class TaxiDriverServiceImpl implements TaxiDriverService {
         taxiDriverMapper.setBusyIndicatorTrue(order);
     }
 
-
+    @Override
+    public void setDriverRating(RatingModel ratingModel) {
+        taxiDriverMapper.setDriverRatingInTaxiDriversById(ratingModel);
+    }
 }
