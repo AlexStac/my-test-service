@@ -9,6 +9,12 @@ import ru.digitalleague.taxi_company.model.Order;
 @Mapper
 public interface OrderTotalMapper {
 
+    /**
+     * Сохранить стоимость определённой поездки в таблицу order_total.
+     *
+     * @param orderId id заказа.
+     * @param sum цена поездки.
+     */
     @Insert("insert into order_total (order_id , sum)" +
             " values( #{orderId}, #{sum})")
     void saveOrderTotalByOrderId(Long orderId , Long sum);

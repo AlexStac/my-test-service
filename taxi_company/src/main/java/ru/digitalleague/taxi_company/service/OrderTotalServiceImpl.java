@@ -11,6 +11,9 @@ import ru.digitalleague.taxi_company.model.Order;
 
 import java.time.Duration;
 
+/**
+ * Сервис расчёта заказов.
+ */
 @Service
 @Slf4j
 public class OrderTotalServiceImpl implements  OrderTotalService{
@@ -24,14 +27,18 @@ public class OrderTotalServiceImpl implements  OrderTotalService{
     @Autowired
     private OrderService orderService;
 
+    /**
+     * Рассчитывает длитильность поездеи и её цену.
+     * @param order инфо заказа
+     * */
     @Override
     public void saveOrderTotal(Order order) {
         Order orderTime = orderService.getOrderTime(order);
-        Long tripTime = Duration.between(orderService.getOrderTime(order).getStartTrip(), orderService.getOrderTime(order).getEndTrip()).toMinutes();
+        Long tripTime = Duration.between(orderTime.getStartTrip(), orderTime.getEndTrip()).toMinutes();
         log.info("Длительность поездки составила {} минут", tripTime);
 
         Long trimSum = tripTime * taxiDriverService.getMinuteCost(order);
-        log.info("Стоимость поездки составила {} рублей", trimSum);
+        log.info("Цена поездки составила {} рублей", trimSum);
         orderTotalMapper.saveOrderTotalByOrderId(order.getOrderId(), trimSum);
     }
 }

@@ -29,6 +29,10 @@ public class OrderListener implements MessageListener {
     @Autowired
     TaxiDriverService taxiDriverService;
 
+    /**
+     * Метод слушает определённую очередь, паремтры для которой мы задаём в файле, либо конфигурации.
+     * @param message сообщение из очереди
+     * */
     @Override
     @SneakyThrows
     public void onMessage(Message message) {

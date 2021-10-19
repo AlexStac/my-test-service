@@ -10,6 +10,11 @@ import ru.digitalleague.taxi_company.model.RatingModel;
 @Mapper
 public interface RatingMapper {
 
+    /**
+     * Найти рейтинг водителя и количество оценок из таблицы driver_rating.
+     *
+     * @param ratingModel инфо рейтинга.
+     */
     @Results(id = "rating", value = {
             @Result(property = "rating", column = "rating"),
             @Result(property = "countRating", column = "count_rating")
@@ -18,6 +23,11 @@ public interface RatingMapper {
             "where driver_id = #{driverId}")
     RatingModel getRatingByDriverId(RatingModel ratingModel);
 
+    /**
+     * Обновить рейтинг водителя и количество оценок из таблицы driver_rating.
+     *
+     * @param ratingModel инфо рейтинга.
+     */
     @Update("update driver_rating " +
             "set rating = #{rating}, count_rating = #{countRating} " +
             "where driver_id = #{driverId}")

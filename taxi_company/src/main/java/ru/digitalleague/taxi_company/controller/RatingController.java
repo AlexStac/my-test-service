@@ -1,5 +1,6 @@
 package ru.digitalleague.taxi_company.controller;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,12 @@ public class RatingController {
     @Autowired
     private TaxiDriverService taxiDriverService;
 
+    /**
+     * Метод рассчитывает средний рейтинг водителя.
+     * @param ratingModel инфо о выставленом рейтинге
+     * */
     @PostMapping("/rating")
+    @ApiOperation(value = "Контроллер учёта рейтинга водителя")
     public ResponseEntity<String> addDriverRating(@RequestBody RatingModel ratingModel) {
 
         RatingModel rating = ratingService.getDriverRating(ratingModel);

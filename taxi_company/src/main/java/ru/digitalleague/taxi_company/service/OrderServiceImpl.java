@@ -19,6 +19,10 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
+    /**
+     * Сохраняет заказ по id клиента и водителя.
+     * @param order инфо заказа
+     * */
     @Override
     public void saveOrder(Order order) {
 
@@ -26,22 +30,37 @@ public class OrderServiceImpl implements OrderService {
         System.out.println("Order saved");
     }
 
+    /**
+     * Находит заказ по id клиента и водителя.
+     * @param order инфо заказа
+     * */
     @Override
     public Long getOrderIdByDriverClient(Order order) {
         return orderMapper.getOrderIdByDriverClient(order);
     }
 
+    /**
+     * Находит время заказа по id клиента и водителя.
+     * @param order инфо заказа
+     * */
     @Override
     public Order getOrderTime(Order order) {
         return orderMapper.getOrderTimeByOrderId(order);
     }
 
+    /**
+     * Устанавливает время начала поездки.
+     * @param order инфо заказа
+     * */
     @Override
     public void setStartTripTime(Order order) {
         orderMapper.startTripById(order);
         System.out.println("Set order start");
     }
-
+    /**
+     * Устанавливает время окончания поездки.
+     * @param order инфо заказа
+     * */
     @Override
     public void setEndTripTime(Order order) {
         orderMapper.endTripById(order);

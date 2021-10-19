@@ -17,6 +17,11 @@ import java.util.List;
 @Mapper
 public interface TaxiDriverMapper {
 
+    /**
+     * Найти информацию о водителе из таблицы taxi_drive_info.
+     *
+     * @param orderDetails детали заказ.
+     */
     @Results(id = "drivers", value = {
             @Result(property = "driverId", column = "driver_id"),
             @Result(property = "lastName", column = "last_name"),
@@ -33,16 +38,36 @@ public interface TaxiDriverMapper {
             "ORDER BY rating DESC LIMIT 1")
     TaxiDriverInfoModel getDriver(OrderDetails orderDetails);
 
+    /**
+     * Найти информацию о стоимости минуты поездки.
+     *
+     * @param order инфо заказ.
+     */
     @Select("SELECT minute_cost FROM taxi_drive_info " +
             "WHERE driver_id =  #{driverId}")
     Long getMinuteCostByDriverId(Order order);
 
+    /**
+     * Поменять статус водителя на "занят".
+     *
+     * @param order инфо заказ.
+     */
     @Update("UPDATE taxi_drive_info SET busy_indicator = false where driver_id = #{driverId}")
     void setBusyIndicatorFalse(Order order);
 
+    /**
+     * Поменять статус водителя на "свободен".
+     *
+     * @param order инфо заказ.
+     */
     @Update("UPDATE taxi_drive_info SET busy_indicator = true where driver_id = #{driverId}")
     void setBusyIndicatorTrue(Order order);
 
+    /**
+     * Поменять рейтинг водителя".
+     *
+     * @param ratingModel инфо рейтинга.
+     */
     @Update("UPDATE taxi_drive_info SET rating = #{rating} where driver_id = #{driverId}")
     void setDriverRatingInTaxiDriversById(RatingModel ratingModel);
 }
